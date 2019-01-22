@@ -1,0 +1,100 @@
+<div class="browse" ng-controller="youtubeController">
+    <div class="tittle-head two">
+        <h3 class="tittle"><i class="fab fa-youtube"></i>   Search videos on YouTube </h3>
+        <!--search zone-->
+
+        <div class="well">
+            <form class="form" ng-submit="initPage(); getYoutubeData(youtubeSearchText);">
+                <!--<input type="search" ng-model="youtubeSearchText" ng-change="getYoutubeData()"-->
+                <div class="col-xs-4">
+                    <input type="search" ng-model="youtubeSearchText"
+                           name="hyv-search" id="hyv-search" placeholder="Search..."
+                           class="ui-autocomplete-input form-control input-lg" autocomplete="off">
+                </div>
+                <input type="submit" id="search" value="Search">
+            </form>
+        </div>
+
+        <!--search zone-->
+        <div class="clearfix"></div>
+    </div>
+    <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+
+        <!-- Pagination -->
+
+        <div style="text-align:center;" ng-if="checkDataLength(youtubeData)">
+            <input type="hidden" id="pageToken" value="">
+            <div class="btn-group" role="group" aria-label="...">
+                <button type="button" ng-show="prevPageToken" id="pageTokenPrev"
+                        ng-click="callNextPageFn(prevPageToken)" class="btn btn-default">Prev
+                </button>
+                <button type="button" id="pageTokenNext" ng-click="callNextPageFn(nextPageToken)"
+                        class="btn btn-default">Next
+                </button>
+            </div>
+        </div>
+        <div id="myTabContent" class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
+                <div class="browse-inner">
+                    <!-- /agileits -->
+                    <div ng-repeat="data in youtubeData">
+                        <div class="col-md-3 content-grid">
+                            <a href="#videoPlayer" data-toggle="modal" data-book-id="{{data}}">
+                                <img data-ng-src="{{data.snippet.thumbnails.default.url}}" alt="{{data.snippet.title}}"
+                                     title="{{data.snippet.title}}"/>
+                            </a>
+                            <a href="#videoPlayer" data-toggle="modal" data-book-id="{{data}}"><i
+                                    class="glyphicon glyphicon-play-circle"></i></a>
+                            <a href="#videoPlayer" data-toggle="modal" data-book-id="{{data}}" class="art" >{{data.snippet.title}}</a>
+                            <span style="color: gray" class="glyphicon glyphicon-time" aria-hidden="true">{{data.duration}}</span>
+                            <p class="views views-info">{{data.likeCount}} Likes</p>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /agileinfo -->
+    <!-- Modal -->
+    <div id="videoPlayer" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 id="modalTitle" class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <!--<p id="modalAuthor">Some text in the modal.</p>-->
+                    <div id="hyv-player-api"
+                         class="hyv-player-width hyv-player-height hyv-off-screen-target hyv-player-api">
+                        <iframe id="videoId" name="videoId" width="100%" height="450" src="about:blank" frameborder="0"
+                                allowfullscreen></iframe>
+                    </div>
+                    <p class="author author-info"><a id="modalAuthor" target="_block"
+                                                     href=""
+                                                     class="author">channelTitle</a>
+                    <span id="modalLikeCount" class="pull-right">Likes</span>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('#videoPlayer').on('show.bs.modal', function (e) {
+            var bookId = $(e.relatedTarget).data('book-id');
+            document.getElementById('videoId').src = 'https://www.youtube.com/embed/' + bookId.id.videoId;
+            document.getElementById('modalTitle').innerHTML = bookId.snippet.title;
+            document.getElementById('modalAuthor').innerHTML = bookId.snippet.channelTitle;
+            document.getElementById('modalAuthor').href = "https://www.youtube.com/channel/"+ bookId.channelId;
+            document.getElementById('modalLikeCount').innerHTML = bookId.likeCount + " Like";
+        });
+        $('#videoPlayer').on('hidden.bs.modal', function () {
+            document.getElementById('videoId').src = "about:blank";
+        })
+    </script>
+</div>
