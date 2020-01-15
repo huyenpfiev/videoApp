@@ -1,0 +1,48 @@
+
+<div>
+        <div class="col-md-6" ng-controller="userController">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Create a new playlist" 
+                        ng-model="newPlaylist" autocomplete="off">
+                        <button type="submit" class="btn btn-primary" 
+                        ng-click="createPlaylist(newPlaylist)" ng-disabled="!newPlaylist">Add</button> 
+                    </div>
+                </form>
+            <hr>   
+            <h4> My playlist : </h4>
+            <div class="list-group">
+                    <div ng-repeat="x in playlistSet track by $index">
+                        <a href="#" class="list-group-item" data-toggle="collapse" data-target="#row{{$index}}">{{x.name}}</a>
+                        <div id="row{{$index}}" class="collapse">
+                            <div class="panel-body">
+                            <button type="submit" class="btn btn-danger btn-sm" ng-click="deletePlaylist(x.name)"><i class="fas fa-trash-alt"></i>Delete</button>
+                            <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-folder-open"></i>Open</button>
+                            </div>
+                        </div>
+                        
+                    </div>
+               
+            </div>
+            <!-- <div class="panel-group" id="accordion" ng-repeat="x in playlistSet track by $index">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        
+                        <a href="#row{{$index}}"  data-toggle="collapse" data-parent="#accordion">{{x.name}}</a>
+                      </div>
+                      <div id="row{{$index}}" class="panel-collapse collapse">
+                        <div class="panel-body">
+                                <button type="submit" class="btn btn-danger btn-sm" ng-click="deletePlaylist(x.name)"><i class="fas fa-trash-alt"></i>Delete</button>
+                                <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-folder-open"></i>Open</button>
+                        </div>
+                      </div>
+                    </div>
+                   
+                    
+            </div> -->
+           
+        </div>
+        <div class="col-md-6" ng-controller="vimeoController">
+            
+        </div>
+</div>

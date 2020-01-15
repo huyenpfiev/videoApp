@@ -7,7 +7,7 @@ myApp.controller('youtubeController', ['$scope', 'youtubeService', '$rootScope',
         var pageToken = $scope.nextPage ? $scope.nextPage : '';
         $youtubeService.getYoutubeData(searchText, pageToken, function (res) {
             var data = res.items;
-            //console.log(data);
+           
             if (data.length === 0) {
                 $scope.youtubeData = 'No results were found!';
             }
@@ -18,7 +18,7 @@ myApp.controller('youtubeController', ['$scope', 'youtubeService', '$rootScope',
         });
         $youtubeService.addToHistory(searchText, $scope.user.email, function(res){
             if(res){
-                //console.log("search added" + searchText);
+              
             }
         });
     };

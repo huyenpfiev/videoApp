@@ -3,27 +3,28 @@ myApp.factory('tradService', function () {
 
     serv.translateTable = {
         'user': {
-            'USER_EMPTY': 'Touts les champs sont vide',
-            'USER_CREATE_SUCCESS': 'Utilisateur crée avec succée',
-            'CHAMP_VIDE': 'Veuillez remplir tous les champs',
-            'PASSWORD_EMPTY': 'Le champ mot de passe est vide',
-            'PASSWORD_CONFIRM_EMPTY': 'Le champ confirmation du mot de passe est vide',
-            'EMAIL_EMPTY': 'Le champ email est vide',
-            'INVALID_EMAIL': 'Le champ email est invalide',
-            'USER_ALREADY_EXIST': 'L\'utilisateur existe déjà',
-            'PASSWORD_DIFFERENT': 'Les mots de passe et sa confirmation sont différents',
-            'LOGIN_SUCCESS': 'Connexion de l\'utilisateur réussi',
-            'LOGIN_FAIL': 'Utilisateur ou mot de passe incorrect',
-            'USER_LOGOUT': 'Déconnexion de l\'utilisateur avec succée',
-            'MUST_LOGGED': 'Vous devez être authentifié pour pouvoir accéder à ce service',
-            'NOT_LOGGED': 'Non authentifié',
-            'INVALID_TOKEN': 'Votre token est invalide',
-            'USER_UPDATED': 'User updated'
+             'USER_EMPTY': 'All fields are empty',
+             'USER_CREATE_SUCCESS': 'User successfully created',
+             'CHAMP_VIDE': 'Please fill in all fields',
+             'PASSWORD_EMPTY': 'The password field is empty',
+             'PASSWORD_CONFIRM_EMPTY': 'The password confirmation field is empty',
+             'EMAIL_EMPTY': 'The email field is empty',
+             'INVALID_EMAIL': 'The email field is invalid',
+             'USER_ALREADY_EXIST': 'The user already exists',
+             'PASSWORD_DIFFERENT': 'The password and confirmation are different',
+             'LOGIN_SUCCESS': 'Login successfully',
+             'LOGIN_FAIL': 'Incorrect email or password',
+             'USER_LOGOUT': 'Logout successfully',
+             'MUST_LOGGED': 'You must be authenticated to access this service',
+             'NOT_LOGGED': 'Not authenticated',
+             'INVALID_TOKEN': 'Your token is invalid',
+             'USER_UPDATED': 'User updated',
+             'PLAYLIST_ALREADY_EXIST':'The playlist name already exists'
         },
         'todo': {
-            'TASKNAME_EMPTY': 'La tache est vide',
-            'INVALID_TOKEN': 'Votre token d\'identification est invalide',
-            'NO_TOKEN': 'Vous devez être authentifier pour pouvoir accéder à ce service'
+             'TASKNAME_EMPTY': 'The task is empty',
+             'INVALID_TOKEN': 'Your identification token is invalid',
+             'NO_TOKEN': 'You must be authenticated to access this service'
         }
     };
 

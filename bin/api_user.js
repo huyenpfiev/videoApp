@@ -35,8 +35,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 var options = {
-    key: fs.readFileSync('./SSL/privatekey.pem'),
-    cert: fs.readFileSync('./SSL/certificate.pem')
+    key: fs.readFileSync('../SSL/privatekey.pem'),
+    cert: fs.readFileSync('../SSL/certificate.pem')
 };
 
 app.use(function (req, res, next) {
@@ -160,6 +160,7 @@ app.post('/isLogged', function (req, res) {
     }
 });
 app.post('/getUserSet', function (req, res) {
+    
     if (req.body.token) {
         jwt.verify(req.body.token, secret, function (err, decoded) {
             if (err) {
@@ -260,5 +261,52 @@ app.post('/updateUser', function (req, res) {
         }
     }
 });
+app.post('/createPlaylist',function(req,res){
+    var name=req.body.name;
+    var userEmail=req.body.userEmail;
+    
+    usersLayer.getPlaylistName(name,userEmail,function(result){
+        if(result){
+            res.send({
+                success:false,
+                errorSet:['PLAYLIST_ALREADY_EXIST']
+            })
+        }
+        else{
+            usersLayer.createPlaylist(name,userEmail,function(){
+                usersLayer.getPlaylistSet(userEmail,function(result){
+
+                        res.send({
+                            success:true,
+                            playlistSet:result
+                        })
+                    
+                })
+            })
+        }
+    });
+});
+app.post('/getPlaylistSet',function(req,res){
+    var userEmail=req.body.userEmail;
+    usersLayer.getPlaylistSet(userEmail,function(result){
+        res.send({
+            success:true,
+            playlistSet:result
+        })
+    })
+});
+app.post('/deletePlaylist',function(req,res){
+    var name=req.body.name;
+    var userEmail=req.body.userEmail;
+    usersLayer.deletePlaylist(name,userEmail,function(result){
+        usersLayer.getPlaylistSet(userEmail,function(result){
+            res.send({
+                success:true,
+                playlistSet:result
+            })
+        })
+    })
+})
+
 https.createServer(options, app).listen(port);
 console.log("API user started on port :" + port);

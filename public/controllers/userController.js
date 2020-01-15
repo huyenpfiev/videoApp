@@ -2,6 +2,7 @@ myApp.controller('userController', ['$scope', 'userService', 'youtubeService', '
     $scope.user = {};
 
     $scope.isLogged = false;
+    $scope.newPlaylist="";
 
     $rootScope.$on('userLoad', function (event, opt) {
         $scope.user = opt.user;
@@ -16,8 +17,12 @@ myApp.controller('userController', ['$scope', 'userService', 'youtubeService', '
     // Trigger when scope is loaded
     $scope.$on('$viewContentLoaded', function (event) {
         $userService.isLogged(function (resp) {
-            $rootScope.$broadcast('userLoad', { user: resp.user, isLogged: resp.isAuth })
+            $rootScope.$broadcast('userLoad', { user: resp.user, isLogged: resp.isAuth });
+            $userService.getPlaylistSet($scope.user,function(res){
+                $scope.playlistSet=res.playlistSet;
+            });
         });
+        
     });
 
     $scope.userLogged = function () {
@@ -32,7 +37,7 @@ myApp.controller('userController', ['$scope', 'userService', 'youtubeService', '
     $scope.register = function () {
         $userService.register($scope.user, function (res) {
             if (res.success) {
-                $state.go('/');
+                $state.go('login');
                 Notification.success({ message: $tradService.get('user', 'USER_CREATE_SUCCESS') });
             }
             else {
@@ -53,7 +58,7 @@ myApp.controller('userController', ['$scope', 'userService', 'youtubeService', '
                 // Store login token
                 $userService.storeToken(res.token);
 
-                $state.go('/');
+                $state.go('youtube');
                 Notification.success({ message: $tradService.get('user', 'LOGIN_SUCCESS') });
             }
             else {
@@ -64,12 +69,13 @@ myApp.controller('userController', ['$scope', 'userService', 'youtubeService', '
         });
     };
     $scope.$on('$viewContentLoaded', function(event) {
-        console.log('user set loaded');
+        //console.log('user set loaded');
         $userService.getUserSet(function(res){
             $scope.userSet = res;
-            console.log(res);
         });
+       
     });
+
     $scope.updateUser = function(user){
         $userService.updateUser(user, function (res) {
             if (res.success == true) {
@@ -85,5 +91,26 @@ myApp.controller('userController', ['$scope', 'userService', 'youtubeService', '
             $scope.userYimeoHistorySet = res;
         });
     };
+    $scope.createPlaylist=function(newPlaylist){
+        
+        $userService.createPlaylist(newPlaylist,$scope.user,function(res){
+            if (res.success) {
+                $scope.playlistSet=res.playlistSet;
+                console.log(res.playlistSet);
+                $scope.newPlaylist="";
+            }
+            else {
+               
+                Notification.error({ message: $tradService.get('user', res.errorSet) });
+               
+            }
+        });
+    };
+    $scope.deletePlaylist=function(name){
+        $userService.deletePlaylist(name,$scope.user,function(res){
+            $scope.playlistSet=res.playlistSet;
+        })
+    }
+
     $scope.userLogged();
 }]);

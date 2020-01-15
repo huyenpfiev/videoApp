@@ -7,7 +7,7 @@ var request = require('request');
 var jwt = require('jsonwebtoken');
 var vimeoLayer = require('../public/dao/VimeoDao');
 
-var _access_token = 'f82a8d54b661e5c61fde6317e74b5c1a';
+var _access_token = '4f9372ee96fe094b1179d1b128845d2b';//'f82a8d54b661e5c61fde6317e74b5c1a';
 var secret = 'd034e2a12cfeb6bea9d01e88f1192be8a02d193a';
 
 var app = express();
@@ -27,8 +27,8 @@ function normalizePort(val) {
 }
 
 var options = {
-    key: fs.readFileSync('./SSL/privatekey.pem'),
-    cert: fs.readFileSync('./SSL/certificate.pem')
+    key: fs.readFileSync('../SSL/privatekey.pem'),
+    cert: fs.readFileSync('../SSL/certificate.pem')
 };
 
 app.use(bodyParser.json());
@@ -46,7 +46,7 @@ app.use(function (req, res, next) {
 
     res.setHeader('Access-Control-Allow-Credentials', true);
 
-    console.log('Request URL> ' + req.method + " : " + req.headers.host + req.url);
+    //console.log('Request URL> ' + req.method + " : " + req.headers.host + req.url);
 
     next();
 });
@@ -59,7 +59,7 @@ app.get('/', function (req, res) {
 app.post('/getVimeoData', function (req, res) {
     var searchText = req.body.searchText;
     var pageNbr = req.body.pageNbr;
-    console.log('searched text : ' + searchText);
+    //console.log('searched text : ' + searchText);
 
     function callback(error, response, body) {
         var objectValue = JSON.parse(response.body);
@@ -96,7 +96,7 @@ app.post('/addToHistory', function (req, res) {
                 });
             }
             else {
-                console.log('current user : ' + decoded.user.email);
+                //console.log('current user : ' + decoded.user.email);
                 vimeoLayer.addToHistory(decoded.user, searchText, function () {
                     var obj = {
                         success: true

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html ng-app="videoApp">
 <head>
-    <title>Agrégateur de recherche de vidéos</title>
+    <title>Y&VVideo App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <script type="application/x-javascript"> addEventListener("load", function () {
@@ -11,8 +11,13 @@
     function hideURLbar() {
         window.scrollTo(0, 1);
     } </script>
+    <!-- // -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Bootstrap Core CSS -->
     <link href="../../theme/mosaic/web/css/bootstrap.css" rel='stylesheet' type='text/css'/>
+    
     <!-- Custom CSS -->
     <link href="../../theme/mosaic/web/css/style.css" rel='stylesheet' type='text/css'/>
     <!-- Graph CSS -->
@@ -20,7 +25,6 @@
     <!-- jQuery -->
     <!-- lined-icons -->
     <link rel="stylesheet" href="../../theme/mosaic/web/css/icon-font.css" type='text/css'/>
-    <!-- //lined-icons -->
     <!-- Meters graphs -->
     <script src="../../theme/mosaic/web/js/jquery-2.1.4.js"></script>
 
@@ -45,7 +49,7 @@
     <script src="services/vimeoService.js"></script>
     <script src="controllers/VimeoController.js"></script>
 </head>
-<!-- /w3layouts-agile -->
+
 <body class="sticky-header left-side-collapsed" ng-controller="userController">
 <section>
     <!-- left side start-->
@@ -53,148 +57,74 @@
 
         <!--logo and iconic logo start-->
         <div class="logo">
-            <h1><a ui-sref="home">Mosai<span>c</span></a></h1>
+            <h1><a ui-sref="home">Y&VVideo</a></h1>
         </div>
         <div class="logo-icon text-center">
-            <a ui-sref="home">M </a>
+            <a ui-sref="home">Y&V </a>
         </div>
-        <!-- /w3l-agile -->
+
         <!--logo and iconic logo end-->
         <div class="left-side-inner">
 
             <!--sidebar nav start-->
             <ul class="nav nav-pills nav-stacked custom-nav">
-                <li class="active"><a ui-sref="searchOnYoutube"><i class="fab fa-youtube"></i><span>Search videos on Youtube</span></a>
+                <li class="active"><a ui-sref="youtube"><i class="fab fa-youtube"></i><span>Youtube</span></a>
                 </li>
-                <li><a ui-sref="searchOnVimeo"><i class="fab fa-vimeo"></i><span>Search videos on Vimeo</span></a></li>
-                <li><a ui-sref="showHistory"><i class="lnr lnr-indent-increase"></i> <span>Show history</span></a>
+                <li><a ui-sref="vimeo"><i class="fab fa-vimeo"></i><span>Vimeo</span></a></li>
+                <li ng-show="isLogged"><a ui-sref="history"><i class="lnr lnr-indent-increase"></i> <span>Show history</span></a>
                 </li>
-                <li><a ui-sref="showUsers"><i class="lnr lnr-users"></i> <span>Show users (for admins only)</span></a>
-                </li>
-                <li ng-show="isLogged" ><a href="#" data-toggle="modal" data-target="#myModal1">
-                <!--Pour la déconnexion (are you sure to logout)-->
-                <i class="fa fa-th"></i><span>Logout</span></a></li>
+                <li ng-show="!isLogged" ><a ui-sref="login"><i class="fas fa-sign-in-alt"></i> <span>Log in</span></a></li>
+                <li ng-show="!isLogged" ><a ui-sref="signup"><i class="fas fa-user-plus"></i> <span>Sign up</span></a></li>
+                <li ng-show="isLogged" ><a ui-sref="playlist"><i class="fab fa-playstation"></i> <span>Playlist</span></a></li>
+                <li ng-show="isLogged" ><a href="#" data-toggle="modal" data-target="#logoutModal">
+                    <i class="fas fa-sign-out-alt"></i><span>Log out</span></a></li>
             </ul>
             <!--sidebar nav end-->
         </div>
     </div>
-    <!-- /w3layouts-agile -->
+   
     <!-- Modal logout-->
-    <div ng-show="isLogged" class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div ng-show="isLogged" class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title w-100" id="myModalLabel">Are you sure you want to log out?</h4>
-                    <button type="button" class="close" data-dismiss="modal" >
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h4 class="modal-title w-100" id="myModalLabel">Are you sure that you want to log out?</h4>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
                     <a ui-sref="logout">
-                        <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" aria-label="Close">Logout</button>
+                        <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" aria-label="Close">Yes</button>
                     </a>
                 </div>
             </div>
         </div>
     </div>
     <!-- //Modal logout-->
-
-    <!-- /w3l-agile -->
-    <!-- signup -->
-    <div ng-hide="isLogged" class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content modal-info">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body modal-spa">
-                    <div class="sign-grids">
-                        <div class="sign">
-                            <div class="sign-right">
-                                <form ng-submit="register()">
-                                    <input type="text" class="email" placeholder="First Name" required="required" pattern=".{2,20}" title="Enter a valid Name"
-                                           ng-model="user.userfirstname" />
-                                    <input type="text" class="email" placeholder="Last Name" required="required" pattern=".{2,20}" title="Enter a valid Name"
-                                           ng-model="user.userlastname" />
-                                    <input type="text" class="email" placeholder="Email" required="required" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                                           title="Enter a valid email" ng-model="user.email" />
-                                    <input type="password" placeholder="Password" required="required" pattern=".{6,}" title="Minimum 6 characters required"
-                                           autocomplete="off" ng-model="user.password" />
-                                    <input type="password" placeholder="Confirm Password" required="required" pattern=".{6,}" title="Confirm password"
-                                           autocomplete="off" ng-model="user.confirmPassword" />
-                                    <input type="submit" value="CREATE ACCOUNT">
-                                </form>
-
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <p>By logging in you agree to our <span>Terms and Conditions</span> and
-                            <span>Privacy Policy</span></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- //signup -->
-    <!-- /w3l-agile -->
     <!-- left side end-->
+
     <!-- main content start-->
     <div class="main-content">
         <!-- Menu en haut -->
         <div class="header-section">
             <!--toggle button start-->
-            <a class="toggle-btn menu-collapsed"><i class="fa fa-bars"></i></a>
-            <a ng-show="isLogged" class="toggle-btn menu-collapsed" ui-sref="home" ><i class="fa fa-user"></i></a>
-
-            <span>{{ user.userfirstname }}  {{ user.userlastname }}  </span>
+            <a class="toggle-btn menu-collapsed "><i class="fa fa-bars"></i>   
+            </a>
             <!--toggle button end-->
-            <!--notification menu start -->
-            <div class="menu-right">
-                <div class="profile_details">
-                    <!--<script src="../../theme/mosaic/web/js/classie.js"></script>
-                    <script src="../../theme/mosaic/web/js/uisearch.js"></script>-->
-                    <!--Signin & Signup pop up-->
-                    <div class="col-md-4 login-pop pull-right" ng-hide="isLogged" >
-
-                        <div id="loginpop">
-                            <a href="#" id="loginButton">
-                                <span>Login <i class="arrow glyphicon glyphicon-chevron-right"></i></span>
-                            </a>
-                            <a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5">
-                                <i class="fas fa-sign-in-alt"></i>
-                            </a>
-                            <div id="loginBox">
-                                <form ng-submit="login()" id="loginForm">
-                                    <fieldset id="body">
-                                        <fieldset>
-                                            <label for="email">Email Address</label>
-                                            <input id="email" type="text" class="email" placeholder="Enter email" required="required" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                                                   title="Enter a valid email" ng-model="user.email" />
-                                        </fieldset>
-                                        <fieldset>
-                                            <label for="password">Password</label>
-                                            <input id="password" type="password" placeholder="Password" required="required" pattern=".{6,}" title="Minimum 6 characters required"
-                                                   autocomplete="off" ng-model="user.password" />
-                                        </fieldset>
-                                        <input type="submit" id="login" value="Sign in">
-                                    </fieldset>
-                                    <span><a href="#">Forgot your password?</a></span>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Signin pop up-->
-                    <div class="clearfix"></div>
-                </div>
-                <!-------->
+            
+            <h2 class="title col-sm-8">Y&VVideo Application</h2>
+            
+            <div class="menu-right col-sm-2" ng-show="isLogged">
+                <button class="btn btn-secondary" >
+                <a ui-sref="playlist" ><i class="fa fa-user"></i>
+                </a>
+                </button>
+                <span> {{user.userfirstname}}</span>
             </div>
-            <div class="clearfix"></div>
+          
         </div>
-        <!-- //header-ends -->
-        <!-- /w3l-agileits -->
+      
+       
         <!-- //header-ends -->
         <div id="page-wrapper">
             <div class="inner-content">
@@ -212,24 +142,13 @@
         </div>
 
         <div class="clearfix"></div>
-        <!--body wrapper end-->
-
+        
     </div>
-    <!--body wrapper end-->
-    <div class="footer">
-        <div class="footer-grid">
-            <h3>Navigation</h3>
-            <ul class="list1">
-                <li><a ui-sref="home">Home</a></li>
-            </ul>
-        </div>
-
-        <div class="clearfix"></div>
-    </div>
-    </div>
+   
+    
     <!--footer section start-->
     <footer>
-        <p>&copy 2019. All Rights Reserved | Developed by  Zakariae EDDAHBANI & Wang Ximing
+        <p>Developed by Huyen & Soukaina & Ghofrane | January 2020
         </p>
     </footer>
     <!--footer section end-->

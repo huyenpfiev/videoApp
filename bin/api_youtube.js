@@ -27,8 +27,8 @@ function normalizePort(val) {
 }
 
 var options = {
-    key: fs.readFileSync('./SSL/privatekey.pem'),
-    cert: fs.readFileSync('./SSL/certificate.pem')
+    key: fs.readFileSync('../SSL/privatekey.pem'),
+    cert: fs.readFileSync('../SSL/certificate.pem')
 };
 
 app.use(bodyParser.json());
@@ -59,7 +59,7 @@ app.get('/', function (req, res) {
 app.post('/getYoutubeData', function (req, res) {
     var searchText = req.body.searchText;
     var pageToken = req.body.pageToken;
-    console.log('searched text : ' + searchText);
+    //console.log('searched text : ' + searchText);
 
     function callback(error, response, body) {
         var objectValue = JSON.parse(response.body);
@@ -128,7 +128,7 @@ app.post('/addToHistory', function (req, res) {
                 });
             }
             else {
-                console.log('current user : ' + decoded.user.email);
+                //console.log('current user : ' + decoded.user.email);
                 youtubeLayer.addToHistory(decoded.user, searchText, function () {
                     var obj = {
                         success: true

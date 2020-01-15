@@ -13,31 +13,44 @@ myApp.config(function ($stateProvider){
         templateUrl: 'index.html',
         controller: "userController"
     };
-    var searchOnYoutube = {
-        name : 'searchOnYoutube',
-        authenticate: true,
+    var youtube = {
+        name : 'youtube',
+        url:'/youtube',
+        authenticate: false,
         templateUrl: 'youtube.html',
         controller: 'youtubeController'
     };
-    var searchOnVimeo = {
-        name : 'searchOnVimeo',
-        authenticate: true,
+    var vimeo = {
+        name : 'vimeo',
+        authenticate: false,
         templateUrl: 'vimeo.html',
         controller: 'vimeoController'
     };
-    var showHistory = {
-        name : 'showHistory',
+    var history = {
+        name : 'history',
         authenticate: true,
         templateUrl: 'showHistory.html',
         controller: 'youtubeController'
     };
-    var showUsers = {
-        name : 'showUsers',
-        authenticate: true,
-        templateUrl: 'showUsers.html',
+    var login = {
+        name : 'login',
+        url:'/login',
+        authenticate: false,
+        templateUrl: 'login.html',
         controller: 'userController'
     };
-
+    var signup = {
+        name : 'signup',
+        authenticate: false,
+        templateUrl: 'signup.html',
+        controller: 'userController'
+    };
+    var playlist = {
+        name : 'playlist',
+        authenticate: true,
+        templateUrl: 'playlist.html',
+        controller: 'userController'
+    };
     var logoutState = {
         name: 'logout',
         url: '/logout',
@@ -60,11 +73,13 @@ myApp.config(function ($stateProvider){
 
     $stateProvider.state(homeState);
     $stateProvider.state(indexState);
-    $stateProvider.state(searchOnYoutube);
-    $stateProvider.state(searchOnVimeo);
+    $stateProvider.state(youtube);
+    $stateProvider.state(vimeo);
     $stateProvider.state(logoutState);
-    $stateProvider.state(showHistory);
-    $stateProvider.state(showUsers);
+    $stateProvider.state(history);
+    $stateProvider.state(login);
+    $stateProvider.state(signup);
+    $stateProvider.state(playlist);
 
     //$stateProvider.state(otherwise);
 

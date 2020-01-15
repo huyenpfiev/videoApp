@@ -10,19 +10,12 @@ ul, ol {margin: 0;}
 p {margin: 0;}
 
 html, body{
-  font-family: 'Lato-Regular';
+  font-family: 'Arial';
     font-size: 100%;
   	overflow-x: hidden;
 	background: #f9f9f9;
 }
-@font-face {
-   font-family: 'MavenPro-Regular';
-   src: url(../fonts/MavenPro-Regular.ttf)format('truetype');
-}
-@font-face {
-   font-family: 'Lato-Regular';
-   src: url(../fonts/Lato-Regular.ttf)format('truetype');
-}
+
 body a{
 	transition:0.5s all;
 	-webkit-transition:0.5s all;
@@ -41,10 +34,10 @@ a {
     background-color:transparent;
 }
 body p{
-   font-family: 'Lato-Regular';
+   font-family: 'Arial';
 }
 h1, h2, h3, h4, h5 {
-      font-family: 'MavenPro-Regular';
+      font-family: 'Arial';
 }
 /*Header Stats Start*/
 .header_stats{
@@ -147,7 +140,7 @@ div#page-wrapper {
     font-size: 2em;
     color:#9E9E9E;
     margin-top: 9px;
-	   font-family: 'MavenPro-Regular';
+	   font-family: 'Arial';
 	font-weight:700;
 }
 /*-- w3layouts --*/
@@ -223,7 +216,7 @@ div#page-wrapper {
 }
 
 .custom-nav > li > a {
-    color:#C8C8C8;
+    color:rgb(231, 216, 216);
     padding: 12px 20px;
     border-radius: 0;
     -webkit-border-radius: 0;
@@ -231,8 +224,8 @@ div#page-wrapper {
 
 .custom-nav > li > a:hover,
 .custom-nav > li > a:active {
-    color:#EA57A3;
-	background-color:#292929;
+    color:rgb(18, 192, 245);
+	background-color:rgb(231, 216, 216);
     border-radius: 0;
     -webkit-border-radius: 0;
 }
@@ -242,22 +235,20 @@ div#page-wrapper {
 
 .custom-nav > li.nav-active > a {
     background-color:#111;
-    color:#EA57A3;
+    color:rgb(18,192,245);
 }
 
 .custom-nav > li.nav-active > ul{
     display: block;
 }
 
-.custom-nav > li.nav-active > a:hover {
-    
-}
+
 
 .custom-nav > li.active > a,
 .custom-nav > li.active > a:hover,
 .custom-nav > li.active > a:focus {
     background-color: #111;
-    color:#EA57A3;
+    color:rgb(18,192,245);
 }
 
 ul.dropdown-menu.drp-mnu li {
@@ -424,7 +415,7 @@ h5.left-nav-title {
 
 .left-side-collapsed .custom-nav li a span {
     position: absolute;
-    background:#EA57A3;
+    background:rgb(18,192,245);
     padding: 11.7px;
     left: 52px;
     top: 1px;
@@ -445,7 +436,7 @@ h5.left-nav-title {
     position: absolute;
     pointer-events: none;
     border-color: rgba(0, 0, 0, 0);
-    border-right-color:#EA57A3;
+    border-right-color:rgb(18,192,245);
     border-width: 6px;
     margin-top: -6px;
 }
@@ -469,7 +460,7 @@ h5.left-nav-title {
 .left-side-collapsed .custom-nav > li.nav-hover > a,
 .left-side-collapsed .custom-nav > li.nav-hover.active > a {
     background:#111;
-    color:#EA57A3;
+    color:rgb(18,192,245);
 }
 
 .left-side-collapsed .custom-nav li.nav-hover a span {
@@ -478,7 +469,7 @@ h5.left-nav-title {
 }
 
 .left-side-collapsed .custom-nav li.nav-hover.active a span {
-    background:#EA57A3;
+    background:rgb(18,192,245);
     color: #fff;
 }
 
@@ -528,7 +519,7 @@ ul.nav li a span {
 -----------------------------*/
 
 .header-section {
-    background:#45B39D;
+    background:rgb(29, 29, 124);
     box-shadow: 1px 0 3px rgba(0,0,0,.15);
     -webkit-box-shadow: 1px 0 3px rgba(0,0,0,.15);
     -moz-box-shadow: 1px 0 3px rgba(0,0,0,.15);
@@ -551,8 +542,8 @@ ul.nav li a span {
     text-align: center;
     cursor: pointer;
     float: left;
-    color: #fff;
-    background: #111;
+    color: rgb(14, 13, 13);
+    background: #FFF;
     border: none;
     border-radius: 5px;
     -moz-transition: all 0.2s ease-out 0s;
@@ -561,7 +552,7 @@ ul.nav li a span {
 }
 
 .toggle-btn:hover {
-    background:#EA57A3;
+    background:rgb(89, 89, 100);
     color: #fff;
 }
 
@@ -601,7 +592,7 @@ ul.nav li a span {
     left: 0;
     width: 200px;
     z-index: 100;
-    background: #EA57A3;
+    background: rgb(124, 205, 230);
     border-bottom: 1px solid #5F45BB;
     text-align: center;
         padding: 1.1em 0 1.2em;
@@ -613,7 +604,7 @@ ul.nav li a span {
 .sticky-header .header-section {
     position: fixed;
     top: 0;
-    left: 200px;
+    /* left: 200px; */
     width: 100%;
     z-index: 100;
 }
@@ -621,17 +612,24 @@ ul.nav li a span {
 .sticky-header .main-content {
     padding-top: 50px;
 }
-.sticky-header .menu-right {
-    margin-right: 0;
-}
+
 .sticky-header.left-side-collapsed .header-section {
-    left: 52px;
+	left: 52px;
+	right:52px;
 }
-.sticky-header.left-side-collapsed .menu-right {
-    margin-right: 0;
+.sticky-header .menu-right {
+	color:white;
+	text-align: right;
+	margin-top:15px;
 }
-.menu-right {
+.sticky-header .title{
+	color:white;
+	text-align:center;
+	font-weight: bold;
 }
+
+
+
 /*-----------------------------
         MAIN CONTENT
 ------------------------------*/
@@ -748,7 +746,7 @@ ul.nav li a span {
 	z-index: 90;
 }
 footer {
-    background:#EA57A3;
+    background:rgb(29, 29, 124);
     padding: 12px;
     width: 100%;
         border-top: 1px solid #423D3E;
@@ -793,8 +791,8 @@ footer  p a:hover{
 }
  /*--main-content--*/
 .music-left{
- float:left;
- width:65%;
+ float:center;
+ height:50%;
 }
 .music-right{
  float:left;
@@ -1130,7 +1128,7 @@ i.arrow {
     position:absolute;
     top: 56px;
     right: 4px;
-    display:none;
+    display:inline;
     z-index:29;
 }
 #loginForm:after {
@@ -1143,11 +1141,12 @@ i.arrow {
     border-bottom: 15px solid #FFFFFF;
 }
 /* Login Form */
+
 #loginForm {
-	  width: 300px;
+  width: 600px;
   background: #fff;
   border: 1px solid #d6d6d6;
-  height: 251px;
+  height: 400px;
 }
 #loginForm fieldset {
     margin:0 0 15px 0;
@@ -1289,7 +1288,7 @@ a.top-sign {
 .content-grid ul li a {
     padding: 0 5px;
     display: block;
-    color: #e3b23f;
+    color: #EA57A3;
     font-size: 1.1em;
 }
 .button {
@@ -1641,7 +1640,7 @@ i.pin{
     font-size: 1.1em;
     display: block;
     margin-top: 6px;
-    font-family: 'MavenPro-Regular';
+    font-family: 'Arial';
     font-weight: 700;
 }
 .media-body.response-text-right ul li {
@@ -1700,7 +1699,7 @@ img.media-object {
   outline: none;
   font-size: 15px;
   padding: 13px 15px;
-      font-family: 'Lato-Regular';
+      font-family: 'Arial';
   width:50%;
   border-radius:4px;
 		-o-border-radius:4px;
@@ -1718,7 +1717,7 @@ img.media-object {
 	font-size:15px;
 	resize: none;
 	padding: 13px 15px;
-	    font-family: 'Lato-Regular';
+	    font-family: 'Arial';
 		border-radius:4px;
 		-o-border-radius:4px;
 		-moz-border-radius:4px;
@@ -1740,7 +1739,7 @@ img.media-object {
   -o-transition:.5s all;
   -ms-transition:.5s all;
   text-transform:uppercase;
-      font-family: 'Lato-Regular';
+      font-family: 'Arial';
 	  border-radius:4px;
 		-o-border-radius:4px;
 		-moz-border-radius:4px;
@@ -1997,6 +1996,7 @@ border-radius: 4px;
 .browse {
     padding: 1em 0 0 0;
 }
+
 i.glyphicon.glyphicon-play-circle {
     position: absolute;
     top:30%;
@@ -2010,7 +2010,7 @@ a.sing {
     font-weight:400;
     display: block;
     padding-top: 20px;
-	    font-family: 'MavenPro-Regular';
+	    font-family: 'Arial';
 }
 a.sing:hover{
  color:#EA57A3;
@@ -2066,7 +2066,7 @@ a.art {
     font-weight: 400;
     display: block;
     padding: 14px 0;
-    font-family: 'MavenPro-Regular';
+    font-family: 'Arial';
     background: #444;
     border: 1px solid #CECDCD;
 	 border-radius:0px 0px 4px 4px;
@@ -2213,7 +2213,7 @@ li.list-group-item1 {
     outline: none;
     font-size: 14px;
     margin-top: 11px;
-    font-family: 'Lato-Regular';
+    font-family: 'Arial';
     box-shadow: inset 0 1px 1px 1px rgba(0,0,0,.07);
     -o-box-shadow: inset 0 1px 1px 1px rgba(0,0,0,.07);
     -moz-box-shadow: inset 0 1px 1px 1px rgba(0,0,0,.07);
@@ -2248,7 +2248,7 @@ li.list-group-item1 {
     -webkit-transition: 0.5s all;
     -moz-transition: 0.5s all;
     -o-transition: 0.5s all;
-    font-family: 'Lato-Regular';
+    font-family: 'Arial';
     margin-top: 20px;
 	     border-radius: 4px;
     -o-border-radius: 4px;
@@ -2279,7 +2279,7 @@ li.list-group-item1 {
     text-align: center;
     color: #fff;
 	text-decoration:none;
-	font-family: 'Lato-Regular';
+	font-family: 'Arial';
      line-height: 32px;
 }
 .sign-left ul li a:hover{
@@ -3220,8 +3220,8 @@ text-decoration:none;
 /*-- agileits --*/
 @media (max-width:991px){
 	.music-left {
-		float: left;
-		width: 100%;
+		float: center;
+		height:50%;
 	}
 	.content-grid {
 		width:22%;
@@ -3497,8 +3497,8 @@ text-decoration:none;
 }
 @media (max-width:768px){
 	.music-left {
-		float: left;
-		width: 100%;
+		float: center;
+		height: 50%;
 	}
 	.content-grid {
 		width: 25%;
@@ -4516,3 +4516,7 @@ text-decoration:none;
 	}
 }
 /***responsive***/
+/* PLAYLIST */
+.list-group a:hover{
+	background-color: #f3c500;
+}

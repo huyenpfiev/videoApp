@@ -21,8 +21,13 @@ var userSchema = new mongoose.Schema({
   password: String,
   role: String
 });
-
+var playlistSchema=new mongoose.Schema({
+    _id:String,
+    name:String,
+    userEmail:String
+});
 var UserModel = mongoose.model('user', userSchema);
+var PlaylistModel=mongoose.model('playlist',playlistSchema);
 
 function setPassword(data) {
     var generator = crypto.createHash('sha1');
@@ -98,5 +103,43 @@ module.exports = {
             }
         });
 
+    },
+    getPlaylistName:function(name,userEmail,cb){
+        PlaylistModel.findOne({name:name,userEmail},function(err,obj){
+            if(err)
+                throw err;
+            else
+                cb(obj);
+        });
+    },
+    createPlaylist:function(name,userEmail,cb){
+        var newPlaylist=new PlaylistModel({
+            _id: uuidv4(),
+            name:name,
+            userEmail:userEmail
+        })
+        newPlaylist.save(function (err) {
+            if (err) {
+                throw err;
+            }
+        cb();
+        });
+
+    },
+    getPlaylistSet:function(userEmail,cb){
+        PlaylistModel.find({userEmail:userEmail},function(err,list){
+            if(err)
+                throw err;
+            else{
+                cb(list);
+            }
+        })
+    },
+    deletePlaylist:function(name,userEmail,cb){
+        PlaylistModel.deleteOne({name:name,userEmail:userEmail},function(err){
+            if(err)
+                throw err;
+            cb()
+        })
     }
   }

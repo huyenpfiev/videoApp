@@ -75,6 +75,27 @@ myApp.factory('userService', ['$http', '$state', '$rootScope', function ($http, 
         $rootScope.$broadcast('userUnload');
         $state.go('home');
     }
+    serv.createPlaylist=function(newPlaylist,user,cb){
+        
+        $http.post('/users/createPlaylist', { name: newPlaylist,userEmail:user.email }).then(function (resp) {
+           
+            cb(resp.data);
 
+        },function (res) {
+            console.log("ERROR = " + res.data.errorSet);
+        });
+    }
+    serv.getPlaylistSet=function(user,cb){
+        $http.post('/users/getPlaylistSet', { userEmail:user.email }).then(function (resp) {
+          
+            cb(resp.data);
+
+        });
+    }
+    serv.deletePlaylist=function(name,user,cb){
+        $http.post('/users/deletePlaylist',{name:name,userEmail:user.email}).then(function(resp){
+            cb(resp.data);
+        })
+    }
     return serv;
 }]);

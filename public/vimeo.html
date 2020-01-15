@@ -1,87 +1,86 @@
 <div class="browse" ng-controller="vimeoController">
-    <div class="tittle-head two">
-        <h3 class="tittle"><i class="fab fa-vimeo"></i>  Search videos on Vimeo </h3>
-        <!--search zone-->
-
-        <div class="well">
-            <form class="form" ng-submit="initPage(); getVimeoData(vimeoSearchText);">
-                <!--<input type="search" ng-model="youtubeSearchText" ng-change="getYoutubeData()"-->
-                <div class="col-xs-4">
-                    <input type="search" ng-model="vimeoSearchText"
-                           name="hyv-search" id="hyv-search" placeholder="Search..."
-                           class="ui-autocomplete-input form-control input-lg" autocomplete="off">
+    <!-- search zone -->
+        <div class="card" style="background-color: rgb(230, 238, 245)">
+        
+            <div class="card-body row">
+                <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Search video" ng-model="vimeoSearchText" autocomplete="off">
                 </div>
-                <input type="submit" id="search" value="Search">
-            </form>
-        </div>
-
-        <!--search zone-->
-        <div class="clearfix"></div>
-    </div>
-    <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
-
-        <!-- Pagination -->
-
-        <div style="text-align:center;" ng-if="checkDataLength(vimeoData)">
-            <!--<input type="hidden" id="pageToken" value="">-->
-            <div class="btn-group" role="group" aria-label="...">
-                <button type="button" ng-show="prevPageToken" id="pageTokenPrev"
-                        ng-click="callNextPageFn(prevPageToken)" class="btn btn-default">Prev
-                </button>
-                <button type="button" id="pageTokenNext" ng-click="callNextPageFn(nextPageToken)"
-                        class="btn btn-default">Next
-                </button>
+                <div class="col-md-4">
+                  <button type="submit" class="btn btn-primary" ng-click="initPage(); getVimeoData(vimeoSearchText);" ng-disabled="!vimeoSearchText">
+                        <i class="fab fa-vimeo "></i> Search on Vimeo
+                </button> 
+                </div>
             </div>
+    
         </div>
-        <div id="myTabContent" class="tab-content">
+     
+    <!-- show results -->
+    <div class="card bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs" style="background-color:#f9f9f9;border: none">
+
+        
+        <div id="myTabContent" class="tab-content ">
             <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
-                <div class="browse-inner">
-                    <!-- /agileits -->
+             
+                <div class="card-body row">
                     <div ng-repeat="data in vimeoData">
-                        <div class="col-md-3 content-grid">
-                            <a href="#videoPlayer" data-toggle="modal" data-book-id="{{data}}">
-                                <img data-ng-src="{{data.pictures.sizes[data.pictures.sizes.length-1].link}}" alt="{{data.name}}"
-                                     title="{{data.name}}"/>
-                            </a>
-                            <a href="#videoPlayer" data-toggle="modal" data-book-id="{{data}}"><i
+                        
+                        <div class="card" style="width: 18rem;">
+                                <a href="#videoPlayer" data-toggle="modal" data-book-id="{{data}}">
+                                    <img src="{{data.pictures.sizes[data.pictures.sizes.length-1].link}}" alt="{{data.name}}"
+                                    class="card-img-top" title="{{data.name}}">
+                                </a>
+                                <a href="#videoPlayer" data-toggle="modal" data-book-id="{{data}}"><i
                                     class="glyphicon glyphicon-play-circle"></i></a>
-                            <a href="#videoPlayer" data-toggle="modal" data-book-id="{{data}}" class="art" >{{data.name}}</a><!--data.duration / 60 | number: 2-->
-                            <span style="color: gray" class="glyphicon glyphicon-time" aria-hidden="true">{{getTime(data.duration)}}</span>
-                            <p class="views views-info">{{data.metadata.connections.likes.total}} Likes</p>
+                                <div class="card-body">
+                                        <p class="card-text" style="font-weight: bold;color:black">
+                                            <a href="#videoPlayer" data-toggle="modal" data-book-id="{{data}}" >{{data.name}}</a>
+                                        </p>
+                                </div>
+                                
                         </div>
                     </div>
-                    <div class="clearfix"></div>
+                    
                 </div>
             </div>
         </div>
+         <!-- Pagination -->
+         <div class="clearfix"></div>
+         <div style="text-align:center;" ng-if="checkDataLength(vimeoData)">
+                 <input type="hidden" id="pageToken" value="">
+                 <div class="btn-group" role="group" aria-label="...">
+                     <button type="button" ng-disabled="!prevPageToken" id="pageTokenPrev"
+                             ng-click="callNextPageFn(prevPageToken)" class="btn">Prev
+                     </button>
+                     <button type="button" id="pageTokenNext" ng-click="callNextPageFn(nextPageToken)"
+                             class="btn">Next
+                     </button>
+                 </div>
+         </div>
+         
     </div>
-    <!-- /agileinfo -->
+  
     <!-- Modal -->
-    <div id="videoPlayer" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
+    <div id="videoPlayer" class="modal fade" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 id="modalTitle" class="modal-title">Modal Header</h4>
-                </div>
-                <div class="modal-body">
-                    <!--<p id="modalAuthor">Some text in the modal.</p>-->
-                    <div id="hyv-player-api"
-                         class="hyv-player-width hyv-player-height hyv-off-screen-target hyv-player-api">
-                        <iframe id="videoId" name="videoId" width="100%" height="450" src="about:blank" frameborder="0"
-                                allowfullscreen></iframe>
-                        <h1 id="cannotShowVideo"></h1>
+    
+                <div class="modal-body mb-0 p-0">
+                    <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
+                            <iframe class="embed-responsive-item" id="videoId" src="about:blank"
+                              allowfullscreen></iframe>
                     </div>
-                    <p class="author author-info"><a id="modalAuthor" target="_block"
-                                                     href=""
-                                                     class="author">channelTitle</a>
-                    <span id="modalLikeCount" class="pull-right">Likes</span>
-                    </p>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <div class="modal-footer justify-content-center">
+                        <span class="mr-4">Spread the word!</span>
+                        <a type="button" class="btn-floating btn-sm btn-fb"><i class="fab fa-facebook-f"></i></a>
+                        <a type="button" class="btn-floating btn-sm btn-tw"><i class="fab fa-twitter"></i></a>
+                        <a type="button" class="btn-floating btn-sm btn-gplus"><i class="fab fa-google-plus-g"></i></a>
+                        <a type="button" class="btn-floating btn-sm btn-ins"><i class="fab fa-linkedin-in"></i></a>
+                        <button type="button" class="btn btn-outline-secondary btn-rounded btn-md ml-4" data-dismiss="modal">Close</button>
+      
                 </div>
+              
             </div>
         </div>
     </div>
@@ -93,20 +92,14 @@
                 var url = href.substring(href.indexOf('src="') + 5, href.indexOf('" '));
                 document.getElementById('videoId').src = url;
                 document.getElementById('videoId').hidden = false;
-                document.getElementById('cannotShowVideo').hidden = true;
+               
             }
             else {
-                document.getElementById('cannotShowVideo').hidden = false;
-                document.getElementById('cannotShowVideo').innerHTML = 'Sorry\n' +
-                    'You can not play this video because of its privacy settings.\n' +
-                    'visit : <a href="https://vimeo.com' + bookId.uri.substring(bookId.uri.indexOf("/", bookId.uri.indexOf("/")+1), bookId.uri.length) + '">This page</a>';
+                
                 document.getElementById('videoId').hidden = true;
             }
 
-            document.getElementById('modalTitle').innerHTML = bookId.name;
-            document.getElementById('modalAuthor').innerHTML = bookId.user.name;
-            document.getElementById('modalAuthor').href = bookId.user.link;
-            document.getElementById('modalLikeCount').innerHTML = bookId.metadata.connections.likes.total + " Like";
+           
         });
         $('#videoPlayer').on('hidden.bs.modal', function () {
             document.getElementById('videoId').src = "about:blank";
