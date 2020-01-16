@@ -62,7 +62,7 @@
     <div id="videoPlayer" class="modal fade" role="dialog" tabindex="-1">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-    
+                
                 <div class="modal-body mb-0 p-0">
                     <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
                             <iframe class="embed-responsive-item" id="videoId" src="about:blank"
@@ -70,12 +70,31 @@
                     </div>
                 </div>
                 <div class="modal-footer justify-content-center">
-                        <span class="mr-4">Spread the word!</span>
-                        <a type="button" class="btn-floating btn-sm btn-fb"><i class="fab fa-facebook-f"></i></a>
-                        <a type="button" class="btn-floating btn-sm btn-tw"><i class="fab fa-twitter"></i></a>
-                        <a type="button" class="btn-floating btn-sm btn-gplus"><i class="fab fa-google-plus-g"></i></a>
-                        <a type="button" class="btn-floating btn-sm btn-ins"><i class="fab fa-linkedin-in"></i></a>
-                        <button type="button" class="btn btn-outline-secondary btn-rounded btn-md ml-4" data-dismiss="modal">Close</button>
+                    
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-outline-success btn-rounded btn-md ml-4 " 
+                        ng-show="isLogged" data-toggle="dropdown">
+                            Add to playlist <i class="fas fa-plus-circle"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">Select a playlist</li>
+                            <li class="divider"></li>
+                            <li ng-repeat="p in playlistSet"><a href="#" ng-click="addVideo(p._id)">{{p.name}}</a></li>
+                            <li class="divider"></li>
+                            
+                            <li>
+                                <a href="#" data-dismiss="dropdown-menu"><i class="fas fa-times"></i>
+                                    Close
+                                </a>
+                            </li>
+                            <li>
+                                    <a href="#" ng-click="createNew()" ><i class="fas fa-folder-plus"></i>
+                                        Create a new playlist
+                                    </a>
+                                </li>
+                        </ul>
+                    </div>
+                    <button type="button" class="btn btn-outline-secondary btn-rounded btn-md ml-4" data-dismiss="modal">Close</button>
       
                 </div>
               
@@ -83,17 +102,5 @@
         </div>
     </div>
      <!--/Modal  -->
-    <script>
-        $('#videoPlayer').on('show.bs.modal', function (e) {
-            var bookId = $(e.relatedTarget).data('book-id');
-            document.getElementById('videoId').src = 'https://www.youtube.com/embed/' + bookId.id.videoId;
-            // document.getElementById('modalTitle').innerHTML = bookId.snippet.title;
-            // document.getElementById('modalAuthor').innerHTML = bookId.snippet.channelTitle;
-            // document.getElementById('modalAuthor').href = "https://www.youtube.com/channel/"+ bookId.channelId;
-            // document.getElementById('modalLikeCount').innerHTML = bookId.likeCount + " Like";
-        });
-        $('#videoPlayer').on('hidden.bs.modal', function () {
-            document.getElementById('videoId').src = "about:blank";
-        })
-    </script>
+    
 </div>

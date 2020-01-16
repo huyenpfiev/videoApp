@@ -1,8 +1,13 @@
-myApp.controller('userController', ['$scope', 'userService', 'youtubeService', 'vimeoService', '$state', '$rootScope', 'Notification', 'tradService', function ($scope, $userService, $youtubeService, $vimeoService, $state, $rootScope, Notification, $tradService) {
+myApp.controller('userController', ['$scope', 'userService', 'youtubeService',
+'vimeoService', '$state', '$rootScope', 'Notification', 'tradService', 
+function ($scope, $userService, $youtubeService, 
+$vimeoService, $state, $rootScope, Notification, $tradService) {
+    //========
     $scope.user = {};
 
     $scope.isLogged = false;
     $scope.newPlaylist="";
+    $scope.plName="";
 
     $rootScope.$on('userLoad', function (event, opt) {
         $scope.user = opt.user;
@@ -96,7 +101,6 @@ myApp.controller('userController', ['$scope', 'userService', 'youtubeService', '
         $userService.createPlaylist(newPlaylist,$scope.user,function(res){
             if (res.success) {
                 $scope.playlistSet=res.playlistSet;
-                console.log(res.playlistSet);
                 $scope.newPlaylist="";
             }
             else {
@@ -111,6 +115,11 @@ myApp.controller('userController', ['$scope', 'userService', 'youtubeService', '
             $scope.playlistSet=res.playlistSet;
         })
     }
-
+    $scope.getVideoSet=function(plId,plName){
+        $scope.plName=plName;
+        $userService.getVideoSet(plId,function(res){
+            $scope.videoSet=res.videoSet;
+        })
+    }
     $scope.userLogged();
 }]);

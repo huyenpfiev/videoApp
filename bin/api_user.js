@@ -307,6 +307,37 @@ app.post('/deletePlaylist',function(req,res){
         })
     })
 })
-
+app.post('/addVideo',function(req,res){
+    var videoId=req.body.videoId;
+    var playlistId=req.body.playlistId;
+   
+    usersLayer.findVideo(videoId,playlistId,function(result){
+        if(result){
+            res.send({
+                success:false,
+                error:['VIDEO_ALREADY_ADDED']
+            })
+        }
+            
+        else{
+            usersLayer.addVideo(req.body,function(result){
+                res.send({
+                    success:true,
+                    res:['ADD_VIDEO_SUCCESS']
+                })
+            })
+        }
+    })
+})
+app.post('/getVideoSet',function(req,res){
+  
+    var playlistId=req.body.playlistId;
+    usersLayer.getVideoSet(playlistId,function(result){
+        res.send({
+            success:true,
+            videoSet:result
+        })
+    })
+})
 https.createServer(options, app).listen(port);
 console.log("API user started on port :" + port);

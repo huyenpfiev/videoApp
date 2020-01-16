@@ -19,7 +19,9 @@ myApp.factory('tradService', function () {
              'NOT_LOGGED': 'Not authenticated',
              'INVALID_TOKEN': 'Your token is invalid',
              'USER_UPDATED': 'User updated',
-             'PLAYLIST_ALREADY_EXIST':'The playlist name already exists'
+             'PLAYLIST_ALREADY_EXIST':'The playlist name already exists',
+             'VIDEO_ALREADY_ADDED':'The video already exists in this playlist',
+             'ADD_VIDEO_SUCCESS':'Added to the playlist successfully'
         },
         'todo': {
              'TASKNAME_EMPTY': 'The task is empty',

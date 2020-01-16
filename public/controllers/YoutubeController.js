@@ -1,4 +1,7 @@
-myApp.controller('youtubeController', ['$scope', 'youtubeService', '$rootScope', function ($scope, $youtubeService, $rootScope) {
+myApp.controller('youtubeController', ['$scope', 'youtubeService',
+ '$rootScope', '$state','tradService','Notification',
+function ($scope, $youtubeService, $rootScope,$state,$tradService,Notification) {
+
     $scope.youtubeData = [];
     $scope.nextPage = "";
     $scope.youtubeSearchText = "";
@@ -51,4 +54,30 @@ myApp.controller('youtubeController', ['$scope', 'youtubeService', '$rootScope',
             $scope.youtubeHistorySet = res;
         });
     });
+    $scope.createNew=function(){
+        // $state.go('playlist');
+    };
+    
+    $('#videoPlayer').on('show.bs.modal', function (e) {
+        var bookId = $(e.relatedTarget).data('book-id');
+        document.getElementById('videoId').src = 'https://www.youtube.com/embed/' + bookId.id.videoId;
+        $scope.videoInfos=bookId;
+        // document.getElementById('modalTitle').innerHTML = bookId.snippet.title;
+        // document.getElementById('modalAuthor').innerHTML = bookId.snippet.channelTitle;
+        // document.getElementById('modalAuthor').href = "https://www.youtube.com/channel/"+ bookId.channelId;
+        // document.getElementById('modalLikeCount').innerHTML = bookId.likeCount + " Like";
+    });
+    $('#videoPlayer').on('hidden.bs.modal', function () {
+        document.getElementById('videoId').src = "about:blank";
+    });
+
+    $scope.addVideo = function (playlistId){
+        $youtubeService.addVideo($scope.videoInfos,playlistId,function(res){
+            if(res.success){
+                Notification.success({ message: $tradService.get('user', res.res) });
+            }
+            else
+                Notification.error({ message: $tradService.get('user', res.error) });
+        });
+    }
 }]);

@@ -97,5 +97,11 @@ myApp.factory('userService', ['$http', '$state', '$rootScope', function ($http, 
             cb(resp.data);
         })
     }
+    serv.getVideoSet=function(plId,cb){
+        
+        $http.post('/users/getVideoSet',{playlistId:plId}).then(function(resp){
+            cb(resp.data);
+        })
+    }
     return serv;
 }]);

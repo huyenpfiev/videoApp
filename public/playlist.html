@@ -1,15 +1,15 @@
 
-<div>
-        <div class="col-md-6" ng-controller="userController">
-                <form class="form-inline">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Create a new playlist" 
-                        ng-model="newPlaylist" autocomplete="off">
-                        <button type="submit" class="btn btn-primary" 
-                        ng-click="createPlaylist(newPlaylist)" ng-disabled="!newPlaylist">Add</button> 
-                    </div>
-                </form>
-            <hr>   
+<div ng-controller="userController">
+    <form class="form-inline">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Create a new playlist" 
+            ng-model="newPlaylist" autocomplete="off">
+            <button type="submit" class="btn btn-primary" 
+            ng-click="createPlaylist(newPlaylist)" ng-disabled="!newPlaylist">Add</button> 
+        </div>
+    </form>
+    <hr>
+        <div class="col-md-6" >   
             <h4> My playlist : </h4>
             <div class="list-group">
                     <div ng-repeat="x in playlistSet track by $index">
@@ -17,32 +17,42 @@
                         <div id="row{{$index}}" class="collapse">
                             <div class="panel-body">
                             <button type="submit" class="btn btn-danger btn-sm" ng-click="deletePlaylist(x.name)"><i class="fas fa-trash-alt"></i>Delete</button>
-                            <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-folder-open"></i>Open</button>
+                            <button type="submit" class="btn btn-success btn-sm" ng-click="getVideoSet(x._id,x.name)">
+                              <i class="fas fa-folder-open"></i>Open
+                            </button>
                             </div>
                         </div>
                         
                     </div>
                
             </div>
-            <!-- <div class="panel-group" id="accordion" ng-repeat="x in playlistSet track by $index">
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        
-                        <a href="#row{{$index}}"  data-toggle="collapse" data-parent="#accordion">{{x.name}}</a>
-                      </div>
-                      <div id="row{{$index}}" class="panel-collapse collapse">
-                        <div class="panel-body">
-                                <button type="submit" class="btn btn-danger btn-sm" ng-click="deletePlaylist(x.name)"><i class="fas fa-trash-alt"></i>Delete</button>
-                                <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-folder-open"></i>Open</button>
-                        </div>
-                      </div>
-                    </div>
-                   
-                    
-            </div> -->
+           
            
         </div>
-        <div class="col-md-6" ng-controller="vimeoController">
+        <div class="col-md-6" >
+            <h4> {{ plName }} </h4>
+            <div class="card-body row">
+                <div ng-repeat="data in videoSet track by $index">
+                    
+                    <div class="card" style="width: 10rem;height: 8rem;">
+                            <a href="#videoPlayer" data-toggle="modal" data-book-id="{{data}}">
+                                <img src="{{data.url}}" alt="{{data.title}}"
+                                class="card-img-top" title="{{data.title}}">
+                            </a>
+                            <a href="#videoPlayer" data-toggle="modal" data-book-id="{{data}}"><i
+                                class="glyphicon glyphicon-play-circle"></i></a>
+                            <!-- <div class="card-body">
+                                    <p class="card-text" style="font-weight: bold;color:black">
+                                        <a href="#videoPlayer" data-toggle="modal" data-book-id="{{data}}" >{{data.snippet.title}}</a>
+                                    </p>
+                            </div> -->
+                            
+                    </div>
+                </div>
+                
+            </div>
+           
+        </div>
             
         </div>
 </div>

@@ -4520,3 +4520,6 @@ text-decoration:none;
 .list-group a:hover{
 	background-color: #f3c500;
 }
+.dropdown-menu li a:hover{
+	background-color: #26a65b;
+}

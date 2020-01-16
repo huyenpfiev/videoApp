@@ -26,8 +26,16 @@ var playlistSchema=new mongoose.Schema({
     name:String,
     userEmail:String
 });
+var videoSchema=new mongoose.Schema({
+    _id:String,
+    videoId:String,
+    title:String,
+    url:String,
+    playlistId:String
+})
 var UserModel = mongoose.model('user', userSchema);
 var PlaylistModel=mongoose.model('playlist',playlistSchema);
+var VideoModel=mongoose.model('video',videoSchema);
 
 function setPassword(data) {
     var generator = crypto.createHash('sha1');
@@ -122,7 +130,7 @@ module.exports = {
             if (err) {
                 throw err;
             }
-        cb();
+            cb();
         });
 
     },
@@ -141,5 +149,38 @@ module.exports = {
                 throw err;
             cb()
         })
+    },
+    findVideo:function(videoId,playlistId,cb){
+        VideoModel.findOne({videoId:videoId,playlistId:playlistId},function(err,obj){
+            if(err)
+                throw(err);
+            else
+                cb(obj);
+        })
+    },
+    addVideo:function(info,cb){
+        var newVideo=new VideoModel({
+            _id: uuidv4(),
+            videoId:info.videoId,
+            title:info.title,
+            url:info.url,
+            playlistId:info.playlistId
+        })
+        newVideo.save(function (err) {
+            if (err) {
+                throw err;
+            }
+            cb();
+        });
+    },
+    getVideoSet:function(playlistId,cb){
+        VideoModel.find({playlistId:playlistId},function(err,list){
+            
+            if(err)
+                throw err;
+            else
+                cb(list);
+        })
     }
+
   }

@@ -36,5 +36,17 @@ myApp.factory('youtubeService', ['$http', 'userService', function ($http, $userS
             console.log("ERROR = " + res.data.errorSet);
         })
     };
+    serv.addVideo=function(info,playlistId,cb){
+        
+        var obj={
+            videoId:info.id.videoId,
+            title:info.snippet.title,
+            url:info.snippet.thumbnails.default.url,
+            playlistId:playlistId
+        }
+        $http.post('/users/addVideo',obj).then(function(resp){
+            cb(resp.data);
+        })
+    }
     return serv;
 }]);
