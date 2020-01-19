@@ -296,9 +296,9 @@ app.post('/getPlaylistSet',function(req,res){
     })
 });
 app.post('/deletePlaylist',function(req,res){
-    var name=req.body.name;
+    var id=req.body.id;
     var userEmail=req.body.userEmail;
-    usersLayer.deletePlaylist(name,userEmail,function(result){
+    usersLayer.deletePlaylist(id,function(result){
         usersLayer.getPlaylistSet(userEmail,function(result){
             res.send({
                 success:true,
@@ -337,6 +337,20 @@ app.post('/getVideoSet',function(req,res){
             success:true,
             videoSet:result
         })
+    })
+})
+app.post('/removeVideo',function(req,res){
+    var video=req.body;
+   
+    usersLayer.removeVideo(video,function(result){
+        usersLayer.getVideoSet(req.body.playlistId,function(re){
+            res.send({
+                success:true,
+                videoSet:re
+    
+            })
+        })
+        
     })
 })
 https.createServer(options, app).listen(port);

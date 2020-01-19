@@ -21,7 +21,8 @@ myApp.factory('tradService', function () {
              'USER_UPDATED': 'User updated',
              'PLAYLIST_ALREADY_EXIST':'The playlist name already exists',
              'VIDEO_ALREADY_ADDED':'The video already exists in this playlist',
-             'ADD_VIDEO_SUCCESS':'Added to the playlist successfully'
+             'ADD_VIDEO_SUCCESS':'Added to the playlist successfully',
+             'REMOVE_VIDEO_SUCCESS':'Removed from playlist successfully'
         },
         'todo': {
              'TASKNAME_EMPTY': 'The task is empty',

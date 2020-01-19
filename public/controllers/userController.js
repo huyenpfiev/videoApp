@@ -110,9 +110,11 @@ $vimeoService, $state, $rootScope, Notification, $tradService) {
             }
         });
     };
-    $scope.deletePlaylist=function(name){
-        $userService.deletePlaylist(name,$scope.user,function(res){
+    $scope.deletePlaylist=function(id){
+        $userService.deletePlaylist(id,$scope.user,function(res){
             $scope.playlistSet=res.playlistSet;
+            $scope.videoSet=[];
+            $scope.plName="";
         })
     }
     $scope.getVideoSet=function(plId,plName){
@@ -120,6 +122,23 @@ $vimeoService, $state, $rootScope, Notification, $tradService) {
         $userService.getVideoSet(plId,function(res){
             $scope.videoSet=res.videoSet;
         })
+    }
+    $('#videoPlayer').on('show.bs.modal', function (e) {
+        var bookId = $(e.relatedTarget).data('book-id');
+        document.getElementById('videoId').src = 'https://www.youtube.com/embed/' + bookId.videoId;
+        $scope.videoInfos=bookId;
+    });
+    $('#videoPlayer').on('hidden.bs.modal', function () {
+        document.getElementById('videoId').src = "about:blank";
+    });
+    $scope.removeVideo=function(){
+        $userService.removeVideo($scope.videoInfos,function(res){
+            if(res.success){
+                $scope.videoSet=res.videoSet;
+                Notification.success({ message: $tradService.get('user', ['REMOVE_VIDEO_SUCCESS']) });
+            }
+            
+        });
     }
     $scope.userLogged();
 }]);

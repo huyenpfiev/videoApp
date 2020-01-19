@@ -143,12 +143,16 @@ module.exports = {
             }
         })
     },
-    deletePlaylist:function(name,userEmail,cb){
-        PlaylistModel.deleteOne({name:name,userEmail:userEmail},function(err){
+    deletePlaylist:function(id,cb){
+        PlaylistModel.deleteOne({_id:id},function(err){
             if(err)
                 throw err;
-            cb()
+           
         })
+        VideoModel.deleteMany({playlistId:id},function(err){
+            if(err) throw err;
+        })
+        cb()
     },
     findVideo:function(videoId,playlistId,cb){
         VideoModel.findOne({videoId:videoId,playlistId:playlistId},function(err,obj){
@@ -180,6 +184,13 @@ module.exports = {
                 throw err;
             else
                 cb(list);
+        })
+    },
+    removeVideo:function(video,cb){
+        VideoModel.deleteOne(video,function(err){
+            if(err)
+                throw err;
+            cb();
         })
     }
 

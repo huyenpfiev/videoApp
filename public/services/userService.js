@@ -92,14 +92,19 @@ myApp.factory('userService', ['$http', '$state', '$rootScope', function ($http, 
 
         });
     }
-    serv.deletePlaylist=function(name,user,cb){
-        $http.post('/users/deletePlaylist',{name:name,userEmail:user.email}).then(function(resp){
+    serv.deletePlaylist=function(id,user,cb){
+        $http.post('/users/deletePlaylist',{id:id,userEmail:user.email}).then(function(resp){
             cb(resp.data);
         })
     }
     serv.getVideoSet=function(plId,cb){
         
         $http.post('/users/getVideoSet',{playlistId:plId}).then(function(resp){
+            cb(resp.data);
+        })
+    }
+    serv.removeVideo=function(video,cb){
+        $http.post('/users/removeVideo',video).then(function(resp){
             cb(resp.data);
         })
     }
